@@ -1,7 +1,7 @@
 # Action_Anticipation
 
 - ## Teacher training
-  1. Copy the following directory /home/sayontan/Action_anticipation/
+  1. Copy the following directory /home/sayontan/Action_anticipation/  (the directory I am referring here is in the context/AI-DGX server)
       ```
         data  
         └───50_salad_action_seq/
