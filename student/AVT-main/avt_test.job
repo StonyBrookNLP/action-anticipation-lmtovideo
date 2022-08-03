@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --job-name=avt_test.job
+#SBATCH --output=/home/taggarwal/AVT-main/full_run_out.txt
+#SBATCH --error=/home/taggarwal/AVT-main/full_run_err.txt
+#SBATCH --time=3-00:00
+#SBATCH --mem=50000
+#SBATCH --gres=gpu
+
+# Test nvidia-smi
+nvidia-smi
+
+# Test Python conda environment
+source /home/taggarwal/anaconda3/etc/profile.d/conda.sh
+conda activate avt
+
+cd /home/taggarwal/AVT-main
+# Run the experiment.
+python3 -X faulthandler launch.py -c expts/13_50s_avt.txt -g

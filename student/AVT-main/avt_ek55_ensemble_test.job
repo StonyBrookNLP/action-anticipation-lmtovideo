@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --job-name=avt_ek55_ensemble_test.job
+#SBATCH --output=/home/taggarwal/AVT-main/expout/avt_ek55_ensemble_kldiv_top50_6may_wt20_t5_nh1_exp10_out.txt
+#SBATCH --error=/home/taggarwal/AVT-main/expout/avt_ek55_ensemble_kldiv_top50_6may_wt20_t5_nh1_exp10_err.txt
+#SBATCH --time=10-10:00
+#SBATCH --mem=50000
+#SBATCH --gres=gpu
+
+# Test nvidia-smi
+nvidia-smi
+
+# Test Python conda environment
+source /home/taggarwal/anaconda3/etc/profile.d/conda.sh
+conda activate avt
+
+cd /home/taggarwal/AVT-main
+# Run the experiment, storing in local_ek55_ens_kldiv_top50_6may_wt20_t5_nh1
+python3 -X faulthandler launch.py -c expts/10_ek55_avt_ig65m.txt -g

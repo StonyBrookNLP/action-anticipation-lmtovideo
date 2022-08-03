@@ -1,0 +1,11 @@
+#!/bin/bash
+#SBATCH --job-name=ai_server_gpu_status.job
+#SBATCH --output=/home/taggarwal/AVT-main/expout/gpu_out1.txt
+#SBATCH --error=/home/taggarwal/AVT-main/expout/gpu_err1.txt
+#SBATCH --time=0-10:00
+#SBATCH --mem=1000
+#SBATCH --gres=gpu
+#SBATCH --nodelist=ai03
+
+# Test nvidia-smi
+nvidia-smi

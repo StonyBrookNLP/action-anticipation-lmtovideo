@@ -1,0 +1,18 @@
+#!/bin/bash
+#SBATCH --job-name=avt_test_topk_eval.job
+#SBATCH --output=/home/taggarwal/AVT-main/expout/avt_test_topk_eval_roberta4_out.txt
+#SBATCH --error=/home/taggarwal/AVT-main/expout/avt_test_topk_eval_roberta4_err.txt
+#SBATCH --time=0-10:00
+#SBATCH --mem=40000
+#SBATCH --gres=gpu
+
+# Test nvidia-smi
+nvidia-smi
+
+# Test Python conda environment
+source /home/taggarwal/anaconda3/etc/profile.d/conda.sh
+conda activate avt
+
+cd /home/taggarwal/AVT-main
+# Run the experiment.
+python3 -X faulthandler launch.py -c expts/13_50s_avt.txt -t -g --run_id 4

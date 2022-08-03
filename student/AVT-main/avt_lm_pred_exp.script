@@ -1,0 +1,15 @@
+#!/bin/bash
+export CUDA_VISIBLE_DEVICES=1,3
+#SBATCH -p gpu                   # Asking to assign "gpu" partition(queue)
+#SBATCH --gres=gpu         # Asking to assign one GPU. You can ask two or more GPUs, but unless your project is coded to run parallel, it will only waste resources.
+#SBATCH --time=01:00:00         # Asking time. This example sets to run unto 12 hours. "gpu" currently let you run an experiment upto 36 hours.
+#SBATCH --output lm_pred_exp.out    # Indicates a file to redirect STDOUT to. "test.out.%j" would append job ID to the filename.
+#SBATCH --error lm_pred_exp.err       # Indicates a file to redirect STDERR to. "test.err.%j" would append job ID to the filename.
+
+# Activating conda environment to run tensorflow (python 2.7)
+source /home/taggarwal/anaconda3/etc/profile.d/conda.sh
+conda activate avt
+# Change the working directory to the project directory
+cd /home/taggarwal/AVT-main
+# Run the experiment.
+python3 -X faulthandler launch.py -c expts/13_50s_avt.txt -g
