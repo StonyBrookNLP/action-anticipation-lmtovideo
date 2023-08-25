@@ -2,8 +2,8 @@
 
 - ## Teacher training
 1. Create the environment using the <b>requirement.txt</b> file in the ```teacher``` folder.
-2. Download the pre-trained language models pretrained on the 1M dataset from the following location:
-3.	Download the content of the <b>data</b> folder from the google drive [link](https://drive.google.com/drive/folders/1IA3G0YrXalotivQWQa4r5DHFylhJEe9K?usp=drive_link)
+
+2.	Download the content of the <b>data</b> folder from the google drive [link](https://drive.google.com/drive/folders/1IA3G0YrXalotivQWQa4r5DHFylhJEe9K?usp=drive_link)
       ```
 	      data
 			└───egtea_action_seq/
@@ -12,7 +12,7 @@
 			└───processed_data_dict.pt
 			└───vocab.txt
       ```
-4.	Download the content of <b>out</b> folder from the google drive [link](https://drive.google.com/drive/folders/1LXQ3sguMliFaZsRCdc2gq54Lm4oxktyo?usp=drive_link). 
+3.	Download the content of <b>out</b> folder from the google drive [link](https://drive.google.com/drive/folders/1LXQ3sguMliFaZsRCdc2gq54Lm4oxktyo?usp=drive_link). This also includes the different LMs pretrined (MLM) on 1M Recipe dataset.
       ```
 	      out
 			└───albert_pretrained/checkpoint-200000/
@@ -24,10 +24,10 @@
 			.
       ```
 
-5.	LM checkpoints pre-trained on action sequences derived from 1M recipe are in their respective folders
-6. Code for pretraining LM on 1M-Recipe is at ```code/{model_name}_pretraining.py```
+4.	LM checkpoints pre-trained on action sequences derived from 1M recipe are in their respective folders
+5. Code for pretraining LM on 1M-Recipe is at ```code/{model_name}_pretraining.py```
 
- 7. To finetune model on EGTEA-GAZE+ dataset
+6. To finetune model on EGTEA-GAZE+ dataset
     ```
       python ./code/egtea_finetuning.py \
       -model_type bert \ # bert/roberta/distillbert/alberta/deberta/electra
@@ -42,7 +42,7 @@
       -sort_seg True \ # Action segnment in the training batch should be sorted by their temporal order 
     ```
 
- 8. To finetune model on EPIC-55 dataset
+ 7. To finetune model on EPIC-55 dataset
 
 	```
       python ./code/epic55_finetuning.py \
@@ -56,15 +56,15 @@
 	      -multi_task True
 	 ```
     
-  9.  For the Egtea and EPIC55 dataset, the arguments in the above snippet are the model hyperparameter used to perform the teacher training and reporting the performance.
-10. Sample slurm script can be found in ```code/slurm scripts```
+8.  For the Egtea and EPIC55 dataset, the arguments in the above snippet are the model hyperparameter used to perform the teacher training and reporting the performance.
+9. Sample slurm script can be found in ```code/slurm scripts```
 10. Model (teacher) predictions for the test data can be found at the google drive [link](https://drive.google.com/drive/folders/1RvnH8Bc_6lyuj4JIok_cGR1qJHrQV5TI?usp=drive_link). 
 
 11. The predictions are saved as list of dictionary, where each element of the list has the following keys ```<UID (unique segment ID), action_logit, LM_feature>```along with other segment (UID) associated such as actionID, action history, etc.
 
 12. These teacher predictions are then used to train student [```Anticipative Video Transformer```](https://github.com/facebookresearch/AVT), through knowledge distillation.
 
- 13. <b>Reproducing teacher metrics reported in the paper: </b>Download the model prediction folder ```teacher/teacher_student_Predictions/``` from [link](https://drive.google.com/drive/folders/1RvnH8Bc_6lyuj4JIok_cGR1qJHrQV5TI?usp=drive_link). Calculate the teacher performance metric reported in the paper by running the notebook ```code/logit_analysis.ipynb```
+13. <b>Reproducing teacher metrics reported in the paper: </b>Download the model prediction folder ```teacher/teacher_student_Predictions/``` from [link](https://drive.google.com/drive/folders/1RvnH8Bc_6lyuj4JIok_cGR1qJHrQV5TI?usp=drive_link). Calculate the teacher performance metric reported in the paper by running the notebook ```code/logit_analysis.ipynb```
 **![](https://lh3.googleusercontent.com/p92t1BHLaVym2JM20eRcIyD1ezlHMiFgGF4-1ZhIlPt9roJLcvzWU1wZBQUVBYnK1Sr7BIT6G3dwXFBLeEfK0yYJr6FAmIhirPzPAa2u6j6yK2Y36RoLb5qfnuGElrTV9YVSuHEPlsXqWVGVqqGSstk)**
 
 
@@ -100,12 +100,12 @@
 	 - Set weight for different losses (teacher + student during student training)
 	   https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/conf/config.yaml#L61
 	
-	7.  Running Experiments
+7.  Running Experiments
 		- EK55 - [https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/avt_ek55_ensemble_test.job](https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/avt_ek55_ensemble_test.job)
 
 		- EGTEA - [https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/avt_base_feat_egtea_test.job](https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/avt_base_feat_egtea_test.job)
 		
-	8. Reading teacher prediction and setting the path in student distillation training
+8. Reading teacher prediction and setting the path in student distillation training
 	- File where the path needs to be set: ```AVT-main\base_video_dataset.py```  
 	
 	- Read the predictions (feature and logits) from teacher Language Model 
@@ -117,7 +117,7 @@
 	https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/datasets/base_video_dataset.py#L454
 	**![](https://lh3.googleusercontent.com/OY9ib0i46kI8Zzt2JOlMlBbjSgsX5CubRvx_bEXMcCtxeonL3QLqjtiFoRKWu08JNdXR8UfqJketTx8N-zGH_Q7bN0Y3ytBbXhUbVM8KDuNzX-5Jr0Whg09ME1dtNVglBMxX8x1ErqN8zJKKanfl0Y4)**
 
-	 8. Dataloader - updates explained
+9. Dataloader - updates explained
 	- File where the path needs to be set: ```AVT-main\/datasets/base_video_dataset.py```  
 	-  Helper function - _get_past_segment_pred_by_uid
 [https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/datasets/base_video_dataset.py#L787](https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/datasets/base_video_dataset.py#L787)
@@ -125,7 +125,7 @@ Usage: fetch predictions for given UID, for feature and logit LM predictions
 	- Call in dataloader - \_\_getitem\_\_
 [https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/datasets/base_video_dataset.py#L859](https://github.com/sayontang/Action_Anticipation/blob/main/student/AVT-main/datasets/base_video_dataset.py#L859) 
 
-9. Knowledge distillation
+10. Knowledge distillation
 - KL divergence (distillation loss)
 
 	- Config weight key: ```distill```
@@ -183,5 +183,5 @@ Usage: fetch predictions for given UID, for feature and logit LM predictions
 
 ![](https://lh5.googleusercontent.com/S1MKadqNePZC6obHEgQZCjspOe-eE_zHqTBUnjhwaEE_a7GkuLwdr_oRr6P5qfeQTe_q-o9m4CAgmxPQciLxiBY1uq-EwDH0s7wJSm2IyZj_vtJSMFIdrlm2JygZHlHTq8TjdM8gZrmC3HV_QjyfLHA)
 
-8. <b>Reproducing student metrics reported in the paper: </b>Download the model prediction folder ```teacher/teacher_student_Predictions/``` from [link](https://drive.google.com/drive/folders/1RvnH8Bc_6lyuj4JIok_cGR1qJHrQV5TI?usp=drive_link). Calculate the teacher performance metric reported in the paper by running the notebook ```code/logit_analysis.ipynb```
+11. <b>Reproducing student metrics reported in the paper: </b>Download the model prediction folder ```teacher/teacher_student_Predictions/``` from [link](https://drive.google.com/drive/folders/1RvnH8Bc_6lyuj4JIok_cGR1qJHrQV5TI?usp=drive_link). Calculate the teacher performance metric reported in the paper by running the notebook ```code/logit_analysis.ipynb```
 **![](https://lh4.googleusercontent.com/25R7RmOTbSBY3OYlpinyaAmJiWb-AE6Wn_3uEOF_5-fu3J4IIG-hdBRg5NHukki8DavOe70E8Et0nzJwYqPMfhhuRejgRQK1-aklwhEQ1zm90Yfe3vpnF2vjJkO4fUJwAx13SyppO6vN5tNMvnwO614)**
