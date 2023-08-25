@@ -1,7 +1,7 @@
 ### [Text-Derived Knowledge Helps Vision: A Simple Cross-modal Distillation for Video-based Action Anticipation](https://scholar.google.com/citations?view_op=view_citation&hl=en&user=ns4fY0sAAAAJ&citation_for_view=ns4fY0sAAAAJ:UeHWp8X0CEIC)
 
 - ## Teacher training
-1. Create the environment using the <b>requirement.txt</b> file.
+1. Create the environment using the <b>requirement.txt</b> file in the ```teacher``` folder.
 2. Download the pre-trained language models pretrained on the 1M dataset from the following location:
 3.	Download the content of the <b>data</b> folder from the google drive [link](https://drive.google.com/drive/folders/1IA3G0YrXalotivQWQa4r5DHFylhJEe9K?usp=drive_link)
       ```
